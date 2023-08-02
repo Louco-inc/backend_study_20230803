@@ -1,0 +1,8 @@
+2023-08-02 22:43:23 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "CREATE TABLE test (\000d\000a    id SERIAL PRIMARY KEY,\000d\000a    name VARCHAR(255) NOT NULL,\000d\000a    age INT NOT NULL,\000d\000a[*])"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "CREATE TABLE test (\000d\000a    id SERIAL PRIMARY KEY,\000d\000a    name VARCHAR(255) NOT NULL,\000d\000a    age INT NOT NULL,\000d\000a[*])"; expected "identifier"; SQL statement:
+CREATE TABLE test (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+) [42001-214]
