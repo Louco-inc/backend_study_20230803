@@ -29,7 +29,6 @@ public class TestController {
 	@RequestMapping(value = "/test/{id}")
 	@CrossOrigin
 	public Test getTest(@PathVariable Number id) {
-		System.out.println(id);
 		Test test = service.findById(id);
 		return test;
 	}
