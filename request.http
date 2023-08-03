@@ -1,5 +1,5 @@
-GET http://localhost:8080/api/v1/test_all HTTP/1.1
-content-type: application/json
-
-# GET http://localhost:8080/api/v1/test/5 HTTP/1.1
+# GET http://localhost:8080/api/v1/companies HTTP/1.1
 # content-type: application/json
+
+GET http://localhost:8080/api/v1/company/2 HTTP/1.1
+content-type: application/json
