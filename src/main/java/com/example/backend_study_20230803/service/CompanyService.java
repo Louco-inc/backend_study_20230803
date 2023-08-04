@@ -20,4 +20,8 @@ public class CompanyService {
 	public Company findById(Number id) {
 		return repository.findById(id);
 	}
+
+  public void postCompany(Company company) {
+    repository.save(company);
+  }
 }

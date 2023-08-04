@@ -15,9 +15,11 @@ INSERT INTO test (id, name, age) VALUES (5, 'Eve', 29);
 ## 一覧取得
 select * from test;
 
+DROP TABLE companies;
+
 ## companiesテーブル作成
 CREATE TABLE companies (
-	id INT PRIMARY KEY,
+	company_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	company_name VARCHAR(50),
 	prtimes_url VARCHAR(200),
 	email VARCHAR(50),
@@ -26,7 +28,9 @@ CREATE TABLE companies (
 	created_date datetime
 )
 
-INSERT INTO companies (company_name, prtimes_url, email, charge_employee, category, created_date) 
-VALUES ("株式会社おいしい健康", "https://prtimes.jp/main/html/rd/p/000000084.000043855.html", "press@oishi-kenko.com", "", "アプリ", "2023-06-25 12:16:40");
+INSERT INTO companies (company_id, company_name, prtimes_url, email, charge_employee, category, created_date) 
+VALUES (1, '株式会社おいしい健康', 'https://prtimes.jp/main/html/rd/p/000000084.000043855.html', 'press@oishi-kenko.com', '', 'アプリ', '2023-06-25 12:16:40');
+
+
 
 
