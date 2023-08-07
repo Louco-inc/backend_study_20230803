@@ -20,11 +20,11 @@ DROP TABLE companies;
 ## companiesテーブル作成
 CREATE TABLE companies (
 	company_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	company_name VARCHAR(50),
-	prtimes_url VARCHAR(200),
-	email VARCHAR(50),
-	charge_employee VARCHAR(200),
-	category VARCHAR(50),
+	company_name VARCHAR(500),
+	prtimes_url VARCHAR(2000),
+	email VARCHAR(500),
+	charge_employee VARCHAR(2000),
+	category VARCHAR(500),
 	created_date datetime
 )
 
