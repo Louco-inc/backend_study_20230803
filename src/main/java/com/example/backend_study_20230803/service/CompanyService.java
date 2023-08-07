@@ -20,4 +20,16 @@ public class CompanyService {
 	public Company findById(Number id) {
 		return repository.findById(id);
 	}
+
+  public void postCompany(Company company) {
+    repository.save(company);
+  }
+
+  // Serviceクラスに会社の情報を複数一気に登録できるメソッドを作り、引数でcompanyの配列を受け取る。
+  // 受け取ったcompanyの配列をsaveAllのメソッドに渡す。
+  public void postCompanyAll(Company[] companies) {
+    for(int index = 0; index < companies.length; index++) {
+      repository.save(companies[index]);
+    }
+  }
 }
