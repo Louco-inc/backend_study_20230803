@@ -32,4 +32,16 @@ public class CompanyService {
       repository.save(companies[index]);
     }
   }
+
+  // 引数で受け取ったIDの会社情報を削除するメソッドを作成
+  // repositoryのdeleteByIdメソッドを呼び出す
+  public void deleteCompany(Integer id) {
+    repository.deleteById(id);
+  }
+
+  // 引数で受け取った会社情報で更新するメソッドを作成
+  // repositoryのsaveメソッドを呼び出す
+  public void updateCompany(Company company) {
+    repository.save(company);
+  }
 }
