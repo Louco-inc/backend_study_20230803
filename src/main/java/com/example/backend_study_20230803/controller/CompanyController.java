@@ -3,7 +3,6 @@ package com.example.backend_study_20230803.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,26 +18,26 @@ import com.example.backend_study_20230803.service.CompanyService;
 @RequestMapping("/api/v1")
 @CrossOrigin
 public class CompanyController {
-  
+
   @Autowired
-	CompanyService service;
+  CompanyService service;
 
   @RequestMapping(value = "/companies")
-	@CrossOrigin
-	public List<Company> getAllTest() {
-		List<Company> companies = service.findAll();
-		return companies;
-	}
+  @CrossOrigin
+  public List<Company> getAllTest() {
+    List<Company> companies = service.findAll();
+    return companies;
+  }
 
-	@RequestMapping(value = "/company/{id}")
-	@CrossOrigin
-	public Company getTest(@PathVariable Number id) {
-		Company company = service.findById(id);
-		return company;
-	}
+  @RequestMapping(value = "/company/{id}")
+  @CrossOrigin
+  public Company getTest(@PathVariable Number id) {
+    Company company = service.findById(id);
+    return company;
+  }
 
   @RequestMapping(value = "/companies", method = RequestMethod.POST)
-	@CrossOrigin
+  @CrossOrigin
   public void postCompany(@RequestBody CompanyForm companyForm) {
     Company company = new Company();
 
@@ -59,14 +58,13 @@ public class CompanyController {
   // companyの配列に変換したい）
   // Serviceクラスに会社の情報を複数一気に登録できるメソッドを作り、引数でcompanyの配列を渡す。
   @RequestMapping(value = "/companies_all", method = RequestMethod.POST)
-	@CrossOrigin
+  @CrossOrigin
   public void postCompanyAll(@RequestBody CompanyForm[] companyFormList) {
-    
 
     // Companyの配列を定義
     Company[] companies = new Company[companyFormList.length];
     // CompanyFormから一つずつ要素を取り出して、Companyの配列に入れていく
-    for(int index = 0; index < companyFormList.length; index++) {
+    for (int index = 0; index < companyFormList.length; index++) {
       CompanyForm companyForm = companyFormList[index];
 
       // Companyエンティティのインスタンス化
@@ -83,5 +81,36 @@ public class CompanyController {
 
     // Serviceクラスに会社の情報を複数一気に登録できるメソッドを作り、引数でcompanyの配列を渡す。
     service.postCompanyAll(companies);
+  }
+
+  // 会社情報を削除するためのメソッドを作成する
+  // 削除したいデータ１件を受け取る
+  // Serviceクラスに１件の会社情報を削除するメソッドを作り、引数で１件の会社データを渡す
+  @RequestMapping(value = "/company/{id}", method = RequestMethod.DELETE)
+  @CrossOrigin
+  public void deleteCompany(@PathVariable Integer id) {
+    service.deleteCompany(id);
+  }
+
+  // 会社情報を更新するためのメソッドを作成する
+  // 更新したい内容をパラメータとして受け取る
+  // 受け取ったパラメータを元に既存の会社情報を取得
+  // 取得した会社情報を書き換える
+  // Serviceクラスに会社情報を更新するメソッドを作り、引数として書き換えた会社情報を渡す
+  @RequestMapping(value = "/company/{id}", method = RequestMethod.PATCH)
+  @CrossOrigin
+  public void updateCompany(@RequestBody CompanyForm companyForm, @PathVariable Number id) {
+    // 受け取ったパラメータを元に既存の会社情報を取得
+    Company company = service.findById(id);
+
+    company.setCompanyName(companyForm.getCompanyName());
+    // company.setPrtimesUrl(companyForm.getPrtimesUrl());
+    // company.setEmail(companyForm.getEmail());
+    // company.setChargeEmployee(companyForm.getChargeEmployee());
+    // company.setCategory(companyForm.getCategory());
+
+    // company.setCreatedDate(companyForm.getCreatedDate());
+
+    service.updateCompany(company);
   }
 }
