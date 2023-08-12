@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend_study_20230803.entity.Company;
@@ -112,5 +113,15 @@ public class CompanyController {
     // company.setCreatedDate(companyForm.getCreatedDate());
 
     service.updateCompany(company);
+  }
+
+  // 会社情報を検索するためのメソッドを作成します
+  // エンドポイントで指定したnameの値を引数として受け取る
+  // Serviceクラスの会社情報を検索するためのメソッドを呼び出し、引数としてnameの値を渡す
+  @RequestMapping(value = "/companies/search")
+  @CrossOrigin
+  public List<Company> searchCompanies(@RequestParam("name") String companyName) {
+    List<Company> companies = service.findByCompanyName(companyName);
+    return companies;
   }
 }

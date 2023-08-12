@@ -44,4 +44,11 @@ public class CompanyService {
   public void updateCompany(Company company) {
     repository.save(company);
   }
+
+  // 引数で受け取ったnameで会社情報を検索するメソッドを作成
+  // repositoryのfindByCompanyNameメソッドを呼び出す
+  public List<Company> findByCompanyName(String companyName) {
+    String companyNameLike = "%" + companyName + "%";
+		return repository.findByCompanyNameLike(companyNameLike);
+	}
 }

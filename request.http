@@ -28,9 +28,12 @@
 
 # DELETE http://localhost:8080/api/v1/company/1 HTTP/1.1
 
-PATCH http://localhost:8080/api/v1/company/2 HTTP/1.1
-content-type: application/json
+# PATCH http://localhost:8080/api/v1/company/2 HTTP/1.1
+# content-type: application/json
 
-  {
-    "companyName": "株式会社NFTDrive2"
-  }
+#   {
+#     "companyName": "株式会社NFTDrive2"
+#   }
+
+GET http://localhost:8080/api/v1/companies/search?name=NFT HTTP/1.1
+content-type: application/json
