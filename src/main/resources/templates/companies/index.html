@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <div>投稿画面</div>
+		<form method="post" action="/company/search" th:object="${companyForm}">
+			<label>社員名</label>
+			<input type="text" th:field="*{companyName}" />
+			<span th:errors="*{companyName}"></span><br />
+			<label>url</label>
+			<input type="text" th:field="*{prtimesUrl}" />
+			<span th:errors="*{prtimesUrl}"></span><br />
+			<input type="submit" value="検索" />
+		</form>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>会社名</th>
+            <th>url</th>
+            <th>email</th>
+            <th>担当者</th>
+            <th>カテゴリ</th>
+            <th>登録日</th>
+            <th>社員数</th>
+            <th>上場フラグ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="company: ${companies}">
+            <!-- <td th:text="${company.id}"></td> -->
+						<td></td>
+            <td th:text="${company.companyName}"></td>
+            <td th:text="${company.prtimesUrl}"></td>
+            <td th:text="${company.email}"></td>
+            <td th:text="${company.chargeEmployee}"></td>
+            <td th:text="${company.category}"></td>
+            <td th:text="${company.createdDate}"></td>
+            <!-- <td th:text="${company.numberOfEmployees}"></td> -->
+            <!-- <td th:text="${company.isListed}"></td> -->
+						<td></td>
+						<td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
