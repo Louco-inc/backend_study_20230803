@@ -25,6 +25,8 @@ CREATE TABLE companies (
 	email VARCHAR(500),
 	charge_employee VARCHAR(2000),
 	category VARCHAR(500),
+	number_of_employees INT,
+	is_listed boolean,
 	created_date datetime
 )
 

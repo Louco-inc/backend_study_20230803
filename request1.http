@@ -299,22 +299,6 @@ content-type: application/json
 			"createdDate": "2023-06-25 12:16:40"
 	},
 	{
-			"companyName": "\"Strava",
-			"prtimesUrl": " Inc.\"",
-			"email": "https://prtimes.jp/main/html/rd/p/000000002.000117531.html",
-			"chargeEmployee": "strava@ozma.co.jp",
-			"category": "",
-			"createdDate": "アプリ"
-	},
-	{
-			"companyName": "\"Audible",
-			"prtimesUrl": " Inc.\"",
-			"email": "https://prtimes.jp/main/html/rd/p/000000178.000036126.html",
-			"chargeEmployee": "audible_pr@ssu.co.jp",
-			"category": "吉松（080-4734-8432）、朝日奈（070-1230-7937）、榛沢、蛭川",
-			"createdDate": "アプリ"
-	},
-	{
 			"companyName": "株式会社 ソニー・ミュージックソリューションズ",
 			"prtimesUrl": "https://prtimes.jp/main/html/rd/p/000000086.000043535.html",
 			"email": "SMS.DB.hinatosho-info@sonymusic.co.jp",

@@ -51,4 +51,10 @@ public class CompanyService {
     String companyNameLike = "%" + companyName + "%";
 		return repository.findByCompanyNameLike(companyNameLike);
 	}
+
+  // 最新の会社情報1件を検索するためのメソッドを呼び出す
+  // repositoryのfindTopOrderByCreatedDateDescメソッドを呼び出す
+  public Company findFirstByOrderByCreatedDateDesc() {
+		return repository.findFirstByOrderByCreatedDateDesc();
+	}
 }
