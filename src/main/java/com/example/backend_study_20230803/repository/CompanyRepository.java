@@ -10,4 +10,8 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
   // 会社名で検索をするためのfindByCompanyNameメソッドを作成
   List<Company> findByCompanyNameLike(String companyNameLike);
+
+  // 最新の会社情報1件を検索するためのメソッドを呼び出す
+  Company findFirstByOrderByCreatedDateDesc();
+
 }

@@ -1,6 +1,9 @@
 package com.example.backend_study_20230803.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -64,6 +67,8 @@ public class CompanyController {
 
     // Companyの配列を定義
     Company[] companies = new Company[companyFormList.length];
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     // CompanyFormから一つずつ要素を取り出して、Companyの配列に入れていく
     for (int index = 0; index < companyFormList.length; index++) {
       CompanyForm companyForm = companyFormList[index];
@@ -76,6 +81,15 @@ public class CompanyController {
       company.setEmail(companyForm.getEmail());
       company.setChargeEmployee(companyForm.getChargeEmployee());
       company.setCategory(companyForm.getCategory());
+      Random rand = new Random();
+      company.setNumberOfEmployees(rand.nextInt(9991) + 10);
+
+      company.setIsListed(index % 4 == 0);
+
+      String dateStr = companyForm.getCreatedDate();
+      if (Character.isDigit(dateStr.charAt(0))) {
+        company.setCreatedDate(LocalDateTime.parse(dateStr, formatter));
+      }
 
       companies[index] = company;
     }
@@ -123,5 +137,14 @@ public class CompanyController {
   public List<Company> searchCompanies(@RequestParam("name") String companyName) {
     List<Company> companies = service.findByCompanyName(companyName);
     return companies;
+  }
+
+  // 最新のデータ1件を取得するためのメソッドを作成する
+  // Serviceクラスの最新の会社情報1件を検索するためのメソッドを呼び出す
+  @RequestMapping(value = "/companies/search/latest")
+  @CrossOrigin
+  public Company searchCompaniesNew() {
+    Company company = service.findFirstByOrderByCreatedDateDesc();
+    return company;
   }
 }
