@@ -1,5 +1,6 @@
 package com.example.backend_study_20230803.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,11 @@ public class CompanyService {
   // repositoryのfindTopOrderByCreatedDateDescメソッドを呼び出す
   public Company findFirstByOrderByCreatedDateDesc() {
 		return repository.findFirstByOrderByCreatedDateDesc();
+	}
+
+  // 引数で受けとったreference_date以降に登録された会社情報を検索するメソッドを作成
+  // repositoryのfindByCreatedDateGreaterThanEqualメソッドを呼び出す
+  public List<Company> findByCreatedDateGreaterThanEqual(LocalDateTime referenceDate) {
+		return repository.findByCreatedDateGreaterThanEqual(referenceDate);
 	}
 }

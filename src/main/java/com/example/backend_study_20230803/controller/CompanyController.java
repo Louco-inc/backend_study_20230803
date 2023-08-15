@@ -1,5 +1,6 @@
 package com.example.backend_study_20230803.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -146,5 +147,22 @@ public class CompanyController {
   public Company searchCompaniesNew() {
     Company company = service.findFirstByOrderByCreatedDateDesc();
     return company;
+  }
+
+  // 基準日以降に登録された会社情報を取得するためのメソッドを作成する
+  // エンドポイントで指定した基準日（reference_date：yyyy-mm-dd）の値を引数として受け取る
+  // Serviceクラスの会社情報を検索するためのメソッドを呼び出し、引数としてreference_dateの値を渡す
+  @RequestMapping(value = "/companies/search/date")
+  @CrossOrigin
+  public List<Company> searchCompaniesByDate(@RequestParam("reference_date") String referenceDateStr) {
+    // 文字列reference_dateをLocalDateTime型に変換
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    // 時間指定がない場合は、LocalDate型でパースする
+    LocalDate referenceDate = LocalDate.parse(referenceDateStr, formatter);
+    // LocalDate型を[yyyy-MM-dd 00:00:00]としてLocalDateTime型に変換
+    LocalDateTime referenceDateTime = referenceDate.atStartOfDay();
+
+    List<Company> companies = service.findByCreatedDateGreaterThanEqual(referenceDateTime);
+    return companies;
   }
 }
