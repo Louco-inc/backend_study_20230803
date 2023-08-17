@@ -18,5 +18,13 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
   // 基準日以降に登録された会社情報を検索するためのメソッドを作成
   List<Company> findByCreatedDateGreaterThanEqual(LocalDateTime referenceDate);
 
+  // 会社情報を昇順で取得するためのメソッドを作成
+  List<Company> findAllByOrderByCreatedDate();
+
+  // 会社情報を降順で取得するためのメソッドを作成
+  List<Company> findAllByOrderByCreatedDateDesc();
+
+  // 会社名が指定した文字列に前方一致する会社情報を検索するためのメソッドを作成
+  List<Company> findByCompanyNameStartingWith(String companyNameLike);
 
 }
