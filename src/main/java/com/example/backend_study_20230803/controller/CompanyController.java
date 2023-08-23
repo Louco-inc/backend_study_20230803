@@ -165,4 +165,35 @@ public class CompanyController {
     List<Company> companies = service.findByCreatedDateGreaterThanEqual(referenceDateTime);
     return companies;
   }
+
+  // データを日時の昇順/降順で並び替えて取得するためのメソッドを作成する
+  // エンドポイントで指定した順序のパラメータ（orderPrm：asc/昇順、desc/降順）の値を引数として受け取る
+  // パラメータが「asc」または空白（デフォルト）の場合：Serviceクラスの会社情報を昇順で取得するためのメソッドを呼び出す
+  // パラメータが「desc」の場合：Serviceクラスの会社情報を降順で取得するためのメソッドを呼び出す
+  // 上記以外のパラメータの場合：何も返さない
+  @RequestMapping(value = "/companies/order_by/created_date")
+  @CrossOrigin
+  public List<Company> getAllOrderByCreatedDate(@RequestParam("orderParam") String orderParam) {
+    List<Company> companies = null;
+    switch (orderParam) {
+      case "desc":
+        companies = service.findAllByOrderByCreatedDateDesc();
+        break;
+      case "asc":
+      default:
+        companies = service.findAllByOrderByCreatedDate();
+        break;
+    }
+    return companies;
+  }
+
+  // 会社名がエンドポイントで指定した文字列に前方一致する会社情報を検索するためのメソッドを作成する
+  // エンドポイントで指定したnameの値を引数として受け取る
+  // Serviceクラスの会社情報を前方一致検索するためのメソッドを呼び出し、引数としてnameの値を渡す
+  @RequestMapping(value = "/companies/prefix_search")
+  @CrossOrigin
+  public List<Company> prefixSearchCompanies(@RequestParam("name") String companyName) {
+    List<Company> companies = service.findByCompanyNameStartingWith(companyName);
+    return companies;
+  }
 }

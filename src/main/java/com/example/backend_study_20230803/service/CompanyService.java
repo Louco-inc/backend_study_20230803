@@ -64,4 +64,20 @@ public class CompanyService {
   public List<Company> findByCreatedDateGreaterThanEqual(LocalDateTime referenceDate) {
 		return repository.findByCreatedDateGreaterThanEqual(referenceDate);
 	}
+
+  // 会社情報を昇順で取得するためにrepositoryのメソッドを呼び出す
+  public List<Company> findAllByOrderByCreatedDate() {
+		return repository.findAllByOrderByCreatedDate();
+	}
+
+  // 会社情報を降順で取得するためにrepositoryのメソッドを呼び出す
+  public List<Company> findAllByOrderByCreatedDateDesc() {
+		return repository.findAllByOrderByCreatedDateDesc();
+	}
+
+  // 引数で受け取ったnameに前方一致する会社情報を検索するメソッドを作成
+  // repositoryのfindByCompanyNameメソッドを呼び出す
+  public List<Company> findByCompanyNameStartingWith(String companyName) {
+		return repository.findByCompanyNameStartingWith(companyName);
+	}
 }
