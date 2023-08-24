@@ -130,13 +130,28 @@ public class CompanyController {
     service.updateCompany(company);
   }
 
-  // 会社情報を検索するためのメソッドを作成します
-  // エンドポイントで指定したnameの値を引数として受け取る
-  // Serviceクラスの会社情報を検索するためのメソッドを呼び出し、引数としてnameの値を渡す
+  // 会社情報をさまざまなパラメータ値で部分一致検索するためのメソッドを作成します
+  // パラメータは会社名（name）とメールアドレス（email）の２つ
+  // エンドポイントで指定したパラメータの値を引数として受け取る
+  // Serviceクラスの会社情報を指定パラメータによって検索するためのメソッドを呼び出し、引数としてパラメータの値を渡す
   @RequestMapping(value = "/companies/search")
   @CrossOrigin
-  public List<Company> searchCompanies(@RequestParam("name") String companyName) {
-    List<Company> companies = service.findByCompanyName(companyName);
+  public List<Company> searchCompanies(@RequestParam(name = "name", required = false) String companyName,
+      @RequestParam(name = "email", required = false) String emailLike) {
+
+    List<Company> companies = null;
+
+    if ((companyName != null && companyName != "") && (emailLike != null && emailLike != "")) {
+      // どちらもnullでも空文字でもない場合は、両方を検索条件に検索
+      companies = service.findByCompanyNameAndEmail(companyName, emailLike);
+    } else if ((companyName != null && companyName != "") && (emailLike == null || emailLike == "")) {
+      companies = service.findByCompanyName(companyName);
+    } else if ((companyName == null || companyName == "") && (emailLike != null && emailLike != "")) {
+      companies = service.findByEmail(emailLike);
+    } else {
+      // どちらもnullもしくは空文字の場合は全件検索
+      companies = service.findAll();
+    }
     return companies;
   }
 

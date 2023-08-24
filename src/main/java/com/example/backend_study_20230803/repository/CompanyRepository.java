@@ -27,4 +27,10 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
   // 会社名が指定した文字列に前方一致する会社情報を検索するためのメソッドを作成
   List<Company> findByCompanyNameStartingWith(String companyNameLike);
 
+  // メールアドレスで検索をするためのメソッドを作成
+  List<Company> findByEmailContaining(String emailLike);
+
+  // 会社名とメールアドレスで検索をするためのメソッドを作成
+  List<Company> findByCompanyNameContainingAndEmailContaining(String companyName, String emailLike);
+
 }
