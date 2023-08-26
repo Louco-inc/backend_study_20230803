@@ -35,7 +35,7 @@
 #     "companyName": "株式会社NFTDrive2"
 #   }
 
-GET http://localhost:8080/api/v1/companies/search?name=合同会社&email=co.jp HTTP/1.1
+GET http://localhost:8080/api/v1/companies/search?email=gmail&name=合同会社 HTTP/1.1
 content-type: application/json
 
 # GET http://localhost:8080/api/v1/companies/search/latest HTTP/1.1

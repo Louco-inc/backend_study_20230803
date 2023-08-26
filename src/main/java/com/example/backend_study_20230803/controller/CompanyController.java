@@ -141,12 +141,12 @@ public class CompanyController {
 
     List<Company> companies = null;
 
-    if (companyName != "" && email != "") {
+    if (!companyName.isEmpty() && !email.isEmpty()) {
       // どちらも空文字ではない場合は、両方を検索条件に検索
       companies = service.findByCompanyNameAndEmail(companyName, email);
-    } else if (companyName != "") {
+    } else if (!companyName.isEmpty()) {
       companies = service.findByCompanyName(companyName);
-    } else if (email != "") {
+    } else if (!email.isEmpty()) {
       companies = service.findByEmail(email);
     } else {
       // どちらも空文字の場合は全件検索
