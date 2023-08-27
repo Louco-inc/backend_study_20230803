@@ -80,4 +80,16 @@ public class CompanyService {
   public List<Company> findByCompanyNameStartingWith(String companyName) {
 		return repository.findByCompanyNameStartingWith(companyName);
 	}
+
+  // 引数で受け取ったemailLikeで会社情報を検索するメソッドを作成
+  // repositoryのfindByEmailContainingメソッドを呼び出す
+  public List<Company> findByEmail(String emailLike) {
+		return repository.findByEmailContaining(emailLike);
+	}
+
+  // 引数で受け取ったcompanyNameとemailLike２つを検索条件に会社情報を検索するメソッドを作成
+  // repositoryのfindByCompanyNameContainingAndEmailContainingメソッドを呼び出す
+  public List<Company> findByCompanyNameAndEmail(String companyName, String emailLike) {
+		return repository.findByCompanyNameContainingAndEmailContaining(companyName, emailLike);
+	}
 }
