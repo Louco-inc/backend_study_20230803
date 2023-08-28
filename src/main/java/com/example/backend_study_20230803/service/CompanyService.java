@@ -87,9 +87,15 @@ public class CompanyService {
 		return repository.findByEmailContaining(emailLike);
 	}
 
-  // 引数で受け取ったcompanyNameとemailLike２つを検索条件に会社情報を検索するメソッドを作成
+  // 引数で受け取ったcompanyNameとemail２つを検索条件に会社情報を検索するメソッドを作成
   // repositoryのfindByCompanyNameContainingAndEmailContainingメソッドを呼び出す
-  public List<Company> findByCompanyNameAndEmail(String companyName, String emailLike) {
-		return repository.findByCompanyNameContainingAndEmailContaining(companyName, emailLike);
+  public List<Company> findByCompanyNameAndEmail(String companyName, String email) {
+		return repository.findByCompanyNameContainingAndEmailContaining(companyName, email);
+	}
+
+  // 引数で受け取ったcompanyNameとcategory２つを検索条件に会社情報を検索するメソッドを作成
+  // repositoryのfindByCompanyNameContainingAndEmailContainingメソッドを呼び出す
+  public List<Company> findByCompanyNameAndCategory(String companyName, String category) {
+		return repository.findByCompanyNameContainingAndCategoryContaining(companyName, category);
 	}
 }

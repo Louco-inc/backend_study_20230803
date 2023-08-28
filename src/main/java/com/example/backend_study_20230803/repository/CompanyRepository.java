@@ -31,6 +31,9 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
   List<Company> findByEmailContaining(String emailLike);
 
   // 会社名とメールアドレスで検索をするためのメソッドを作成
-  List<Company> findByCompanyNameContainingAndEmailContaining(String companyName, String emailLike);
+  List<Company> findByCompanyNameContainingAndEmailContaining(String companyName, String email);
+
+  // 会社名とカテゴリ名で検索をするためのメソッドを作成
+  List<Company> findByCompanyNameContainingAndCategoryContaining(String companyName, String category);
 
 }

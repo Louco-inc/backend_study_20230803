@@ -155,6 +155,17 @@ public class CompanyController {
     return companies;
   }
 
+  // 特定の会社名とカテゴリの組み合わせに対応するデータを取得するためのメソッドを作成する
+  // リクエストボディで指定したcompanyNameとcategoryを引数として受け取る
+  // リクエストボディを受け取るために、RequestMappingで「RequestMethod.POST」を指定する
+  // Serviceクラスの会社名とカテゴリの組み合わせで会社情報を検索するメソッドを呼び出し、引数としてcompanyNameとcategoryの値を渡す
+  @RequestMapping(value = "/companies/search", method = RequestMethod.POST)
+  @CrossOrigin
+  public List<Company> searchCompaniesByCompanyNameAndCategory(@RequestBody CompanyForm companyForm) {
+    List<Company> companies = service.findByCompanyNameAndCategory(companyForm.getCompanyName(), companyForm.getCategory());
+    return companies;
+  }
+
   // 最新のデータ1件を取得するためのメソッドを作成する
   // Serviceクラスの最新の会社情報1件を検索するためのメソッドを呼び出す
   @RequestMapping(value = "/companies/search/latest")
@@ -163,7 +174,7 @@ public class CompanyController {
     Company company = service.findFirstByOrderByCreatedDateDesc();
     return company;
   }
-
+  
   // 基準日以降に登録された会社情報を取得するためのメソッドを作成する
   // エンドポイントで指定した基準日（reference_date：yyyy-mm-dd）の値を引数として受け取る
   // Serviceクラスの会社情報を検索するためのメソッドを呼び出し、引数としてreference_dateの値を渡す
@@ -211,4 +222,5 @@ public class CompanyController {
     List<Company> companies = service.findByCompanyNameStartingWith(companyName);
     return companies;
   }
+
 }
