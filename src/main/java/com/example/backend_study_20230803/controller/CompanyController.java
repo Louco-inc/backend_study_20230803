@@ -3,6 +3,7 @@ package com.example.backend_study_20230803.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -162,7 +163,8 @@ public class CompanyController {
   @RequestMapping(value = "/companies/search", method = RequestMethod.POST)
   @CrossOrigin
   public List<Company> searchCompaniesByCompanyNameAndCategory(@RequestBody CompanyForm companyForm) {
-    List<Company> companies = service.findByCompanyNameAndCategory(companyForm.getCompanyName(), companyForm.getCategory());
+    List<Company> companies = service.findByCompanyNameAndCategory(companyForm.getCompanyName(),
+        companyForm.getCategory());
     return companies;
   }
 
@@ -174,7 +176,7 @@ public class CompanyController {
     Company company = service.findFirstByOrderByCreatedDateDesc();
     return company;
   }
-  
+
   // 基準日以降に登録された会社情報を取得するためのメソッドを作成する
   // エンドポイントで指定した基準日（reference_date：yyyy-mm-dd）の値を引数として受け取る
   // Serviceクラスの会社情報を検索するためのメソッドを呼び出し、引数としてreference_dateの値を渡す
@@ -221,6 +223,32 @@ public class CompanyController {
   public List<Company> prefixSearchCompanies(@RequestParam("name") String companyName) {
     List<Company> companies = service.findByCompanyNameStartingWith(companyName);
     return companies;
+  }
+
+  // 特定のメールアドレスを持つ担当者のデータを取得するためのメソッドを作成する
+  // レスポンスは担当者のみの配列を返す
+  // エンドポイントで指定したemailの値を引数として受け取る
+  // Serviceクラスのメールアドレスによって会社情報を検索するためのメソッドを呼び出し、引数としてemailの値を渡す
+  // 取得したCompanyのListからそれぞれ担当者（chargeEmployee）を取り出し、別のListに格納する
+  @RequestMapping(value = "/charge_employees/search")
+  @CrossOrigin
+  public List<String> searchChargeEmployee(@RequestParam(name = "email", defaultValue = "") String email) {
+    List<Company> companies = service.findByEmail(email);
+
+    // 取得したCompanyのListからそれぞれ担当者（chargeEmployee）を取り出して格納するためのListを定義
+    List<String> chargeEmployees = new ArrayList<String>();
+
+    String chargeEmployee;
+    for (Company company : companies) {
+      chargeEmployee = company.getChargeEmployee();
+
+      // 担当者がnullでない、かつ、空文字出ない場合のみchargeEmployeesに追加
+      if(chargeEmployee != null && !chargeEmployee.isEmpty()){
+        chargeEmployees.add(chargeEmployee);
+      }
+    }
+
+    return chargeEmployees;
   }
 
 }
