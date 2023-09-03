@@ -83,8 +83,8 @@ public class CompanyService {
 
   // 引数で受け取ったemailLikeで会社情報を検索するメソッドを作成
   // repositoryのfindByEmailContainingメソッドを呼び出す
-  public List<Company> findByEmail(String emailLike) {
-		return repository.findByEmailContaining(emailLike);
+  public List<Company> findByEmail(String email) {
+		return repository.findByEmailContaining(email);
 	}
 
   // 引数で受け取ったcompanyNameとemail２つを検索条件に会社情報を検索するメソッドを作成
@@ -97,5 +97,17 @@ public class CompanyService {
   // repositoryのfindByCompanyNameContainingAndEmailContainingメソッドを呼び出す
   public List<Company> findByCompanyNameAndCategory(String companyName, String category) {
 		return repository.findByCompanyNameContainingAndCategoryContaining(companyName, category);
+	}
+
+  // 引数で受け取ったcategoryに属し、referenceDateTime以前に登録された会社情報を検索するメソッドを作成
+  // repositoryのfindByCategoryContainingAndCreatedDateLessThanEqualメソッドを呼び出す
+  public List<Company> findByCategoryAndCreatedDateLessThanEqual(String category, LocalDateTime referenceDateTime) {
+		return repository.findByCategoryContainingAndCreatedDateLessThanEqual(category, referenceDateTime);
+	}
+
+  // 引数で受け取ったcategoryに属し、referenceDateTime以降に登録された会社情報を検索するメソッドを作成
+  // repositoryのfindByCategoryContainingAndCreatedDateGreaterThanEqualメソッドを呼び出す
+  public List<Company> findByCategoryAndCreatedDateGreaterThanEqual(String category, LocalDateTime referenceDateTime) {
+		return repository.findByCategoryContainingAndCreatedDateGreaterThanEqual(category, referenceDateTime);
 	}
 }

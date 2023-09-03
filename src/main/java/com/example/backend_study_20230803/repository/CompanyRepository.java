@@ -37,4 +37,10 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
   // 会社名とカテゴリ名で検索をするためのメソッドを作成
   List<Company> findByCompanyNameContainingAndCategoryContaining(String companyName, String category);
 
+  // 検索条件に指定したカテゴリ名に属し、指定日付以前に登録された会社情報を検索するためのメソッドを作成
+  List<Company> findByCategoryContainingAndCreatedDateLessThanEqual(String category, LocalDateTime referenceDateTime);
+
+  // 検索条件に指定したカテゴリ名に属し、指定日付以降に登録された会社情報を検索するためのメソッドを作成
+  List<Company> findByCategoryContainingAndCreatedDateGreaterThanEqual(String category, LocalDateTime referenceDateTime);
+
 }
