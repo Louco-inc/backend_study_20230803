@@ -243,12 +243,40 @@ public class CompanyController {
       chargeEmployee = company.getChargeEmployee();
 
       // 担当者がnullでない、かつ、空文字出ない場合のみchargeEmployeesに追加
-      if(chargeEmployee != null && !chargeEmployee.isEmpty()){
+      if (chargeEmployee != null && !chargeEmployee.isEmpty()) {
         chargeEmployees.add(chargeEmployee);
       }
     }
 
     return chargeEmployees;
+  }
+
+  // 特定のカテゴリに属し、かつ特定の日時以前 or 以降に登録されたデータを取得するメソッドを作成する
+  // リクエストボディで指定したcategory、createdDate、isBeforeTimeを引数として受け取る
+  // リクエストボディを受け取るために、RequestMappingで「RequestMethod.POST」を指定する
+  // isBeforeTime（真偽値）でcreatedDate以前（true）を検索するか、以降（false）を検索するか指定する（デフォルトはfalse）
+  // isBeforeTimeが「true」の場合：Serviceクラスの特定の日付【以前】に登録された会社情報を取得するためのメソッドを呼び出す
+  // isBeforeTimeが「false」の場合：Serviceクラスの特定の日付【以降】に登録された会社情報を取得するためのメソッドを呼び出す
+  @RequestMapping(value = "/companies/search/by_category", method = RequestMethod.POST)
+  @CrossOrigin
+  public List<Company> SearchCompaniesByCategoryAndDate(@RequestBody CompanyForm companyForm) {
+    // リクエストボディで指定したcategoryを取得
+    String category = companyForm.getCategory();
+
+    // リクエストボディで指定したcreatedDateを取得し、基準日（referenceDate）としてLocalDate型に変換
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate referenceDate = LocalDate.parse(companyForm.getCreatedDate(), formatter);
+    // LocalDate型を[yyyy-MM-dd 00:00:00]としてLocalDateTime型に変換
+    LocalDateTime referenceDateTime = referenceDate.atStartOfDay();
+
+    List<Company> companies = null;
+    if (companyForm.getIsBeforeTime()) {
+      companies = service.findByCategoryAndCreatedDateLessThanEqual(category, referenceDateTime);
+    } else {
+      companies = service.findByCategoryAndCreatedDateGreaterThanEqual(category, referenceDateTime);
+    }
+
+    return companies;
   }
 
 }

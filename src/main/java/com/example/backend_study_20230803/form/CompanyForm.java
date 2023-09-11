@@ -12,4 +12,9 @@ public class CompanyForm {
 	private String chargeEmployee;
 	private String category;
 	private String createdDate;
+
+	// 指定した日付より前の期間に登録されたデータを検索するかどうかのフラグ
+	// trueの場合：指定した日付【以前】の期間を検索
+	// falseの場合：指定した日付【以降】の期間を検索（デフォルト値）
+	private Boolean isBeforeTime = false;
 }
