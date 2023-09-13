@@ -17,4 +17,7 @@ public class CompanyForm {
 	// trueの場合：指定した日付【以前】の期間を検索
 	// falseの場合：指定した日付【以降】の期間を検索（デフォルト値）
 	private Boolean isBeforeTime = false;
+
+	// ページングしてデータを取得するときのページ番号
+	private Integer pageNumber;
 }

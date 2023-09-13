@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.backend_study_20230803.entity.Company;
@@ -110,4 +112,10 @@ public class CompanyService {
   public List<Company> findByCategoryAndCreatedDateGreaterThanEqual(String category, LocalDateTime referenceDateTime) {
 		return repository.findByCategoryContainingAndCreatedDateGreaterThanEqual(category, referenceDateTime);
 	}
+
+  // 引数で受け取ったcompanyNameを検索条件に会社情報を検索し、pageableを元にページングするメソッドを作成
+  // repositoryのfindByCompanyNameContainingOrderByCompanyIdメソッドを呼び出す
+  public Page<Company> findByCompanyNameOrderByCompanyId(String companyName, Pageable pageable){
+    return repository.findByCompanyNameContainingOrderByCompanyId(companyName, pageable);
+  }
 }
