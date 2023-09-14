@@ -2,6 +2,9 @@ package com.example.backend_study_20230803.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.backend_study_20230803.entity.Company;
 
@@ -42,5 +45,8 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
   // 検索条件に指定したカテゴリ名に属し、指定日付以降に登録された会社情報を検索するためのメソッドを作成
   List<Company> findByCategoryContainingAndCreatedDateGreaterThanEqual(String category, LocalDateTime referenceDateTime);
+
+  // 会社名を検索条件にデータを検索し、ページングしてデータを返すためのメソッドを作成
+  Page<Company> findByCompanyNameContainingOrderByCompanyId(String companyName, Pageable pageable);
 
 }

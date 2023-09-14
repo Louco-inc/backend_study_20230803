@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -276,6 +278,32 @@ public class CompanyController {
       companies = service.findByCategoryAndCreatedDateGreaterThanEqual(category, referenceDateTime);
     }
 
+    return companies;
+  }
+
+  // データをページングして、idの小さい順から20件ずつ取得するメソッドを作成する（会社名で検索をかける場合を想定する）
+  // レスポンスは、リクエストボディで指定したページ番号（pageNumber）の会社情報を返す
+  // 例えば、１ページ目は検索でヒットした１〜20番目のデータ、2ページ目は21〜40番目のデータ、というように取得する
+  // Pageableを用いてページのサイズ（１ページに何件表示させるか：今回は20）と、リクエストボディで指定したページ番号を設定する
+  @RequestMapping(value = "/companies/search/by_name", method = RequestMethod.POST)
+  @CrossOrigin
+  public List<Company> pagingSearchCompaniesByCompanyName(@RequestBody CompanyForm companyForm) {
+    // リクエストボディで指定した会社名、ページ番号を取得
+    String companyName = companyForm.getCompanyName();
+    int pageNumber = companyForm.getPageNumber();
+
+    // ページサイズ（１ページあたり何件表示するか）を指定
+    int pageSize = 20;
+
+    // ページのサイズと、リクエストボディで指定したページ番号を設定する
+    // ofSize(int pageSize)：pageSize を指定して、最初のページ（ページ番号 0）の新しい Pageable を作成します。
+    // withPage(int pageNumber)：pageNumber が適用された新しい Pageable を作成します。
+    Pageable pageable = Pageable.ofSize(pageSize).withPage(pageNumber-1);
+
+    Page<Company> companyPage = service.findByCompanyNameOrderByCompanyId(companyName, pageable);
+
+    // getContentでListとして取得する
+    List<Company> companies = companyPage.getContent();
     return companies;
   }
 
