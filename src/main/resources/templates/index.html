@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>会社情報登録画面</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8" />
+</head>
+<body>
+  <h1>会社情報登録画面</h1>
+  <form method="post" action="/api/v1/import_companies" enctype="multipart/form-data">
+    <input type="file" name="csv_file">
+    <input type="submit" name="csv_import" value="CSVインポート">
+  </form>
+  <div>
+    <p th:text="${message}"></p>
+  </div>
+</body>
+</html>
